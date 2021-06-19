@@ -1,0 +1,44 @@
+version: "3.1"
+
+services:
+  firebase:
+    build:
+      context: .
+      dockerfile: ./docker/firebase/Dockerfile
+      args:
+        - FIREBASE_PROJECT=$FIREBASE_PROJECT
+        - FIREBASE_TOKEN=$FIREBASE_TOKEN
+    image: firebase
+    container_name: firebase
+    ports:
+      - 4000:4000
+      - 5000:5000
+      - 5001:5001
+    volumes:
+      - ./:/app
+      - firebase-lib:/app/functions/lib
+      - firebase-node_modules:/app/functions/node_modules
+    environment:
+      - FIREBASE_PROJECT=$FIREBASE_PROJECT
+      - FIREBASE_TOKEN=$FIREBASE_TOKEN
+    tty: true
+  # MySQL
+  db:
+    image: mysql:5.7
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: password
+      MYSQL_USER: docker
+      MYSQL_PASSWORD: docker
+    restart: always
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+    ports:
+    - 3306:3306
+
+volumes:
+  firebase-node_modules:
+  firebase-lib:
+  mysql-data:
