@@ -3,7 +3,7 @@ FROM node:12-alpine
 ARG FIREBASE_PROJECT
 ARG FIREBASE_TOKEN
 
-RUN apt-get update && \
+RUN apk add --update &&\
   npm install -g firebase-tools
 
 WORKDIR /app

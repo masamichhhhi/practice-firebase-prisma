@@ -9,7 +9,7 @@ services:
         - FIREBASE_PROJECT=$FIREBASE_PROJECT
         - FIREBASE_TOKEN=$FIREBASE_TOKEN
     image: firebase
-    container_name: firebase
+    container_name: firebase-prisma
     ports:
       - 4000:4000
       - 5000:5000
