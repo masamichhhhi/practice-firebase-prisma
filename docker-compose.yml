@@ -21,6 +21,7 @@ services:
     environment:
       - FIREBASE_PROJECT=$FIREBASE_PROJECT
       - FIREBASE_TOKEN=$FIREBASE_TOKEN
+      - DATABASE_URL=$DATABASE_URL
     tty: true
   # MySQL
   db:
@@ -28,7 +29,7 @@ services:
     container_name: mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: password
+      MYSQL_DATABASE: test-db
       MYSQL_USER: docker
       MYSQL_PASSWORD: docker
     restart: always
