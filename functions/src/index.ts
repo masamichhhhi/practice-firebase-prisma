@@ -1,9 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import * as functions from "firebase-functions";
 
-// // Start writing Firebase Functions
-// // https://firebase.google.com/docs/functions/typescript
-//
 const prisma = new PrismaClient();
 
 export const createUser = functions.https.onRequest(
@@ -21,3 +18,12 @@ export const createUser = functions.https.onRequest(
     }
   }
 );
+
+export const getUsers = functions.https.onRequest(async (request, response) => {
+  if (request.method == "GET") {
+    const getUsersResponse = await prisma.user.findMany();
+    response.status(200).send(getUsersResponse);
+  } else {
+    response.status(403).send("forbidden!");
+  }
+});
