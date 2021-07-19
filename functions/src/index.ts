@@ -27,3 +27,24 @@ export const getUsers = functions.https.onRequest(async (request, response) => {
     response.status(403).send("forbidden!");
   }
 });
+
+export const createTodo = functions.https.onRequest(
+  async (request, response) => {
+    if (request.method == "POST") {
+      await prisma.todo.create({
+        data: {
+          deadline: request.body.deadline,
+          title: request.body.title,
+          assignee: {
+            connect: {
+              id: request.body.userId,
+            },
+          },
+        },
+      });
+      response.status(200).send("success!");
+    } else {
+      response.status(403).send("forbidden!");
+    }
+  }
+);
