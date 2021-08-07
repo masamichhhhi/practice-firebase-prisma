@@ -1,2 +1,1 @@
-- firebase init
-- prisma init
+Cloud Functions for firebaseとprismaをdockerで動かすサンプルです。
